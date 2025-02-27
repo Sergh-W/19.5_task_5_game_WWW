@@ -8,7 +8,7 @@ int main()
 {
     std::ifstream questions, answers;
     std::string question, answer, playerAnswer;
-    int playerPoints = 0, tvViewerPoints = 0, position = 0;
+    int playerPoints = 0, tvViewerPoints = 0, position = 1, offset = 0, maxPos = 13;
     std::vector <int> playedPos (13);
 
     questions.open("..\\questions.txt");
@@ -26,13 +26,14 @@ int main()
         while (playerPoints < 6 && tvViewerPoints < 6)
         {
             std::cout << std::endl;
-            std::cout << "Please enter question number: ";
-            std::cin >> position;
-            if (position > 13 || position < 1 ) position = 1;
+            std::cout << "Please spin the top: ";
+            std::cin >> offset;
+            position += offset;
+            if (position > maxPos ) position -= maxPos;
             while (std::find(playedPos.begin(), playedPos.end(), position) != playedPos.end())
             {
                 ++position;
-                if (position > 13 ) position = 1;
+                if (position > maxPos ) position = 1;
             }
             playedPos.push_back(position);
 
@@ -83,3 +84,4 @@ int main()
 
     return 0;
 }
+
